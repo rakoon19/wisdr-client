@@ -5,23 +5,48 @@ import { Check, Eye, EyeSlash } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { authClient, signUp } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-  const onSubmit = (e) => {
+ const onSubmit = async(e) => {
     e.preventDefault();
     
-    const formData = new FormData(e.currentTarget);
-    const data = {};
+    const formDataObj = Object.fromEntries(new FormData(e.currentTarget));
+    console.log(formDataObj)
+    try {
+      const { data, error } = await signUp.email({
+        name: formDataObj.name,
+        email: formDataObj.email,
+        password: formDataObj.password,
+        image: formDataObj.photoUrl
+      });
 
-    formData.forEach((value, key) => {
-      data[key] = value.toString();
-    });
+      if (error != null) {
+        const errorMessage = error?.message || "Unable to complete registration.";
+        toast.error(errorMessage);
+        return;
+      }
 
-    toast.success("Account created successfully! 🎉");
-    console.log("Form Data Submitted:", data);
+      if (data != null) {
+        toast.success("Account created successfully. Redirecting to dashboard...");
+        router.push("/"); 
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("An unexpected error occurred.");
+    } 
   };
+
+  const handleGoogleSignIn = async() => {
+    await authClient.signIn.social({
+      provider: "google", 
+    })
+  }
 
   const onInvalid = (e) => {
     e.preventDefault();
@@ -143,6 +168,33 @@ export default function SignUpPage() {
             </p>
           </div>
         </Form>
+            {/* GOOGLE LOGIN BUTTON */}
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
+        >
+          <svg className="h-5 w-5" viewBox="0 0 24 24">
+            <path
+              fill="#EA4335"
+              d="M5.266 9.765A7.077 7.077 0 0112 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.33 0 3.357 2.673 1.414 6.573l3.852 3.192z"
+            />
+            <path
+              fill="#4285F4"
+              d="M23.727 12.273c0-.818-.073-1.609-.209-2.364H12v4.51h6.6a5.64 5.64 0 01-2.445 3.7l3.782 2.928c2.21-2.036 3.79-5.036 3.79-8.774z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M5.266 14.235L1.414 17.43A11.947 11.947 0 0012 24c3.082 0 5.882-1.018 7.945-2.773l-3.782-2.927a7.126 7.126 0 01-4.163 1.164c-3.11 0-5.79-2.091-6.734-4.964z"
+            />
+            <path
+              fill="#34A853"
+              d="M1.414 6.573A11.947 11.947 0 000 12c0 1.936.464 3.764 1.414 5.43l4.814-3.736A7.017 7.017 0 016 12c0-1.41.41-2.727 1.118-3.836L1.414 6.573z"
+            />
+          </svg>
+          <span>Sign in with Google</span>
+        </button>
+
       </div>
     </div>
   );
