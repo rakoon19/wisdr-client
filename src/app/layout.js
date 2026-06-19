@@ -22,12 +22,13 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`
-      
-    }
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        {/* Added relative positioning context around your layout blocks */}
+      {/* Add suppressHydrationWarning here */}
+      <body 
+        suppressHydrationWarning 
+        className="min-h-full flex flex-col bg-background text-foreground"
+      >
         <div className="relative flex flex-col min-h-screen w-full">
           <Navbar />
           <main className="flex-1">

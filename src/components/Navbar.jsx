@@ -141,7 +141,6 @@ export default function Navbar() {
                 */}
                 <DropdownTrigger>
                   <Avatar
-                    isBordered
                     color="primary"
                     as="button"
                     className="w-9 h-9 text-sm cursor-pointer hover:scale-105 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"

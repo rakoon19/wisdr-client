@@ -1,11 +1,12 @@
 import React from 'react';
+import AddLesson from './add-lesson';
 
-const AddLesson = () => {
+const AddLessonPage = async() => {
     return (
         <div>
-            addlesson
+            <AddLesson></AddLesson>
         </div>
     );
 };
 
-export default AddLesson;
+export default AddLessonPage;
