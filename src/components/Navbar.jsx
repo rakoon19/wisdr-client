@@ -62,7 +62,7 @@ export default function Navbar() {
 
   return (
     // Added relative positioning to navigation layout context
-    <nav className="relative sticky top-0 z-40 w-full border-b border-zinc-800 bg-black/80 backdrop-blur-md text-white">
+    <nav className="relative sticky top-0 z-40 w-full border border-b-amber-500 border-zinc-800 bg-black/80 backdrop-blur-md text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
 
@@ -109,8 +109,7 @@ export default function Navbar() {
             ) : !isLoggedIn ? (
               <div className="flex items-center gap-2">
                 <Button
-                  as={Link}
-                  href="/login"
+                  onClick={() => router.push("/login")}
                   variant="ghost"
                   size="sm"
                   className="text-zinc-300 hover:text-white"
@@ -118,8 +117,7 @@ export default function Navbar() {
                   Login
                 </Button>
                 <Button
-                  as={Link}
-                  href="/signup"
+                  onClick={() => router.push("/register")}
                   size="sm"
                   className="bg-blue-600 hover:bg-blue-500 text-white font-medium"
                 >

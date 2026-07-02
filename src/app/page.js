@@ -23,7 +23,8 @@ export default async function Home() {
       {session?.session?.token && (
         <div className="mt-6 p-4 rounded-medium bg-default-100 max-w-md break-all">
           <p className="text-xs text-default-500 font-semibold mb-1">Session Token Active:</p>
-          <code className="text-xs">{session.session.token}</code>
+          <code className="text-xs">{session?.session?.token}</code>
+          <p className="text-xs text-default-500 mt-2">User Role: {session?.user?.role}</p>
         </div>
       )}
 

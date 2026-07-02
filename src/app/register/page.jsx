@@ -23,7 +23,7 @@ export default function SignUpPage() {
         name: formDataObj.name,
         email: formDataObj.email,
         password: formDataObj.password,
-        image: formDataObj.photoUrl
+        image: formDataObj.photoUrl,
       });
 
       if (error != null) {
@@ -34,7 +34,7 @@ export default function SignUpPage() {
 
       if (data != null) {
         toast.success("Account created successfully. Redirecting to dashboard...");
-        router.push("/"); 
+        window.location.href = "/" ;
       }
     } catch (err) {
       console.error(err);

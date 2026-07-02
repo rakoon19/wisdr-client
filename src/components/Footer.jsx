@@ -22,27 +22,27 @@ function XLogo({ className }) {
 const socialLinks = [
   {
     label: "X (Twitter)",
-    href: "https://x.com/lessonhub",
+    href: "https://x.com/wisdr",
     icon: <XLogo className="w-4 h-4" />,
   },
   {
     label: "GitHub",
-    href: "https://github.com/lessonhub",
+    href: "https://github.com/wisdr",
     icon: <LogoGithub className="w-4 h-4" />,
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/company/lessonhub",
+    href: "https://linkedin.com/company/wisdr",
     icon: <LogoLinkedin className="w-4 h-4" />,
   },
   {
     label: "YouTube",
-    href: "https://youtube.com/@lessonhub",
+    href: "https://youtube.com/@wisdr",
     icon: <TvMinimalPlay className="w-4 h-4" />,
   },
   {
     label: "Telegram",
-    href: "https://t.me/lessonhub",
+    href: "https://t.me/wisdr",
     icon: <LogoTelegram className="w-4 h-4" />,
   },
 ];
@@ -71,7 +71,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t border-zinc-800 bg-black text-white">
+    <footer className="w-full border border-t-amber-500 border-zinc-800 bg-black text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
 
         {/* Top grid: Brand + link columns */}
@@ -84,7 +84,7 @@ export default function Footer() {
               <span className="bg-blue-600/20 text-blue-400 p-1.5 rounded-md text-sm leading-none select-none">
                 📚
               </span>
-              <span className="font-bold text-xl tracking-tight">LessonHub</span>
+              <span className="font-bold text-xl tracking-tight">Wisdr</span>
             </Link>
 
             <p className="text-sm text-zinc-400 leading-relaxed max-w-xs">
@@ -100,7 +100,7 @@ export default function Footer() {
                   className="flex items-center gap-2 hover:text-white transition-colors duration-150"
                 >
                   <Mail className="w-4 h-4 shrink-0 text-zinc-500" />
-                  hello@lessonhub.io
+                  wisdr@gmail.com
                 </a>
               </li>
               <li>
@@ -109,12 +109,12 @@ export default function Footer() {
                   className="flex items-center gap-2 hover:text-white transition-colors duration-150"
                 >
                   <Phone className="w-4 h-4 shrink-0 text-zinc-500" />
-                  +1 (555) 000-1234
+                  +88 01516560994
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 shrink-0 text-zinc-500 mt-0.5" />
-                <span>123 Lesson Lane, San Francisco, CA 94103</span>
+                <span>Jonson Road, Ray Shaheb Bazar, Dhaka</span>
               </li>
             </ul>
 

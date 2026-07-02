@@ -36,6 +36,7 @@ export default function LoginPage() {
     } catch (err) {
       console.error(err);
       toast.error("An unexpected error occurred during sign-in.");
+      alert("An unexpected error occurred during sign-in.")
     }
   };
 
