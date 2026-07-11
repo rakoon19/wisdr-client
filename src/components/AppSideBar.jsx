@@ -9,10 +9,10 @@ export default function AppSidebar() {
   const pathname = usePathname();
 
   const getItemClass = (path) => {
-    const baseClass = "py-3 px-4 rounded-xl cursor-pointer transition-colors";
+    const baseClass = "py-3 px-4 rounded-xl cursor-pointer transition-colors ";
     return pathname === path
-      ? `${baseClass} bg-primary-50 text-primary font-semibold`
-      : `${baseClass} text-default-600 hover:bg-default-100`;
+      ? `${baseClass} bg-blue-600/15 text-white font-semibold`
+      : `${baseClass} text-white hover:bg-zinc-900 hover:text-white`;
   };
 
   const navItems = [
@@ -23,16 +23,19 @@ export default function AppSidebar() {
   ];
 
   return (
-    <div className="w-64 h-screen border-r border-divider flex flex-col bg-background select-none border border-r-amber-500">
-      <div className="p-6 font-bold text-lg border border-b-amber-500 border-divider">
+    <div className="flex h-screen w-64 select-none flex-col border text-white">
+      <div
+        className="cursor-pointer border-b border-white-800 p-6 text-lg font-bold"
+        onClick={() => router.push("/dashboard/admin")}
+      >
         Admin Dashboard
       </div>
 
-      <div className="flex-1 p-4">
+      <div className="flex-1 p-4 ">
         <ListBox
           aria-label="Admin Navigation"
           selectionMode="none"
-          className="p-0 gap-1"
+          className="gap-1 p-0"
           onAction={(id) => {
             const item = navItems.find((i) => i.id === id);
             if (item) router.push(item.path);
@@ -47,14 +50,14 @@ export default function AppSidebar() {
             >
               <div className="flex items-center gap-3">
                 <Icon size={20} />
-                <Label className="text-sm">{label}</Label>
+                <Label className="text-sm text-white">{label}</Label>
               </div>
             </ListBox.Item>
           ))}
         </ListBox>
       </div>
 
-      <div className="p-4 text-xs text-default-400 border-t border-divider text-center">
+      <div className="border-t border-zinc-800 p-4 text-center text-xs text-zinc-500">
         © 2026 Admin Panel
       </div>
     </div>

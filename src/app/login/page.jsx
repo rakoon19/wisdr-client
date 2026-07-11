@@ -32,6 +32,7 @@ export default function LoginPage() {
       if (data != null) {
         toast.success("Logged in successfully! Welcome back! 👋");
         router.push("/");
+        router.refresh();
       }
     } catch (err) {
       console.error(err);

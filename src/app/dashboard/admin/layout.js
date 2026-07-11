@@ -1,13 +1,22 @@
+import { getSession } from "@/actions/session";
+import { redirect } from "next/navigation";
 import AppSideBar from "@/components/AppSideBar";
 
+export default async function AdminLayout({ children }) {
+  const session = await getSession();
 
-export default function AdminLayout({ children }) {
-    return (
-        <div className="flex w-full h-screen overflow-hidden bg-background">
-            <AppSideBar />
-            <main className="flex-1 h-full overflow-y-auto p-8 bg-default-50/50">
-                {children}
-            </main>
-        </div>
-    );
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  if (session.user.role !== "admin") {
+    redirect("/dashboard");
+  }
+
+  return (
+    <div className="flex">
+      <AppSideBar />
+      <main className="flex-1">{children}</main>
+    </div>
+  );
 }

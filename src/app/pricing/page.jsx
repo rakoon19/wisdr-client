@@ -1,10 +1,24 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Button } from '@heroui/react';
+import { useEffect, useState } from "react";
+import { getSession } from "@/actions/session";
 
 export default function PricingComparisonPage() {
-  const [loading, setLoading] = useState(false);
+  const [session, setSession] = useState(null);
+  const [sessionLoading, setSessionLoading] = useState(true);
+
+  useEffect(() => {
+    const loadSession = async () => {
+      const data = await getSession();
+      setSession(data);
+      setSessionLoading(false);
+    };
+
+    loadSession();
+  }, []);
+
+  const isPurchased =
+    session?.user?.role === "pro" || session?.user?.role === "admin";
 
   const comparisonRows = [
     { id: 1, feature: "Number of lessons that can be created", free: "Up to 3", premium: "Unlimited" },
@@ -16,51 +30,58 @@ export default function PricingComparisonPage() {
     { id: 7, feature: "Dedicated customer support tier", free: "Standard Email", premium: "24/7 Priority Chat" },
   ];
 
-
   return (
-    <div className="max-w-4xl mx-auto p-4 md:p-10 space-y-8 text-slate-100 my-8">
-      
-      <div className="text-center space-y-2">
-        <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">
+    <div className="mx-auto my-8 max-w-4xl space-y-8 bg-black p-4 text-white md:p-10 border border-white">
+      <div className="space-y-2 text-center">
+        <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl">
           Comparison Table
         </h2>
       </div>
 
-      {/* Tailwind Grid Alternative */}
-      <div className="border border-slate-800 bg-slate-900/30 backdrop-blur-md rounded-3xl p-6 shadow-xl overflow-hidden">
-        
-        {/* Header Row */}
-        <div className="grid grid-cols-3 gap-4 pb-4 border-b border-slate-800 font-bold text-xs uppercase tracking-wider text-slate-400">
+      <div className="overflow-hidden rounded-3xl border border-white bg-zinc-900/50 p-6 shadow-xl backdrop-blur-md">
+        <div className="grid grid-cols-3 gap-4 border-b border-white pb-4 text-xs font-bold uppercase tracking-wider text-zinc-400">
           <div>Features</div>
           <div>Free Plan</div>
-          <div className="text-purple-400">💎 Premium Plan</div>
+          <div className="text-blue-400">💎 Premium Plan</div>
         </div>
 
-        {/* Data Rows */}
-        <div className="divide-y divide-slate-800/60">
+        <div className="divide-y divide-zinc-800/60 ">
           {comparisonRows.map((row) => (
-            <div key={row.id} className="grid grid-cols-3 gap-4 py-4 text-sm items-center hover:bg-slate-800/10 transition-colors">
-              <div className="font-medium text-slate-200">{row.feature}</div>
-              <div className="text-slate-400">{row.free}</div>
-              <div className="font-semibold text-purple-400">{row.premium}</div>
+            <div
+              key={row.id}
+              className="grid grid-cols-3 items-center gap-4 py-4 text-sm "
+            >
+              <div className="text-zinc-200 ">{row.feature}</div>
+              <div className="text-zinc-400">{row.free}</div>
+              <div className="text-blue-400">{row.premium}</div>
             </div>
           ))}
         </div>
-
       </div>
 
-      <div className="flex justify-center pt-4">
+      <div className="flex justify-center">
+        {sessionLoading ? (
+          <div className="h-12 w-40 animate-pulse rounded-lg bg-zinc-800" />
+        ) : (
           <form action="/api/checkout_sessions" method="POST">
-          <section>
-            <button type="submit" role="link" 
-            className="font-extrabold px-12 py-6 text-white text-base bg-linear-to-r from-purple-600 to-indigo-600"
+            <button
+              type="submit"
+              disabled={isPurchased}
+              className={`rounded-lg px-6 py-3 font-medium transition ${
+                isPurchased
+                  ? "cursor-not-allowed bg-zinc-400 text-zinc-200"
+                  : "bg-blue-600 text-white hover:bg-blue-500"
+              }`}
             >
-              Upgrade to Premium Access
+              {session?.user?.role === "admin"
+                ? "Admin Access"
+                : session?.user?.role === "pro"
+                ? "Already Purchased"
+                : "Purchase Pro"}
             </button>
-          </section>
-        </form>
+          </form>
+        )}
       </div>
-
     </div>
   );
 }
