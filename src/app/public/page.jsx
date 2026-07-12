@@ -265,7 +265,7 @@ export default function PublicLessonsPage() {
         <div className="mx-auto min-h-[400px] max-w-xl bg-black px-4 py-16 text-center">
           <h2 className="mb-2 text-2xl font-bold text-white">No Lessons Found</h2>
           <p className="mb-6 text-zinc-400">
-            We couldn't find anything matching your filters. Try adjusting your parameters!
+            We couldnt find anything matching your filters. Try adjusting your parameters!
           </p>
         </div>
       ) : (
