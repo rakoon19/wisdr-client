@@ -95,14 +95,11 @@ export default function AddLesson() {
     };
 
     try {
-      // Send data to backend API via server wrapper handler
+
       await serverMutation('/dashboard/add-lesson', payload);
-      
-      // ✅ Show success message first
+
       toast.success('Lesson published successfully');
-      
-      // ✅ Use a slight delay to allow React-Toastify to safely mount the alert 
-      // into global memory context before the page unmounts and changes router paths.
+
       setTimeout(() => {
         router.push('/dashboard');
       }, 100);
@@ -110,7 +107,7 @@ export default function AddLesson() {
     } catch (error) {
       console.error('Submission Error:', error);
       
-      // ✅ Explicitly target and extract backend custom rejection text strings if they exist
+
       const errorMessage = error instanceof Error ? error.message : 'Failed to publish';
       toast.error(`Submission Failure: ${errorMessage}`);
     } finally {

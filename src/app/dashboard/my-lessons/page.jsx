@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Globe, Tag } from "lucide-react";
 import { getSession } from "@/actions/session";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function MyLessonsPage() {
   const router = useRouter();

@@ -9,7 +9,7 @@ export default function IgnoreButton({ id }) {
     if (!confirm("Clear all reports for this lesson?")) return;
 
     await fetch(
-      `http://localhost:5000/dashboard/admin/reported-lessons/${id}/ignore`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/admin/reported-lessons/${id}/ignore`,
       {
         method: "DELETE",
       }

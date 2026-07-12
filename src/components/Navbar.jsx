@@ -95,7 +95,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-800 bg-black/80 text-white backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-zinc-800 bg-black/80 text-white backdrop-blur-md border border-b-white">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Left: Mobile hamburger + Brand */}
         <div className="flex items-center gap-2">
@@ -125,7 +125,7 @@ export default function Navbar() {
               className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                 isActive(link.href)
                   ? "text-blue-400"
-                  : "text-zinc-400 hover:text-white"
+                  : "text-zinc-400 hover:text-white hover:underline"
               }`}
             >
               {link.label}

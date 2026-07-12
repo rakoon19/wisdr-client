@@ -13,7 +13,7 @@ export default function EditProfileForm({ admin }) {
     e.preventDefault();
 
     await fetch(
-      `http://localhost:5000/dashboard/admin/profile/${admin._id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/admin/profile/${admin._id}`,
       {
         method: "PATCH",
         headers: {

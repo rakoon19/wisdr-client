@@ -17,7 +17,7 @@ export default function EditProfile({ user }) {
     setSaving(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/dashboard/profile/${user._id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/profile/${user._id}`,
         {
           method: "PATCH",
           headers: {

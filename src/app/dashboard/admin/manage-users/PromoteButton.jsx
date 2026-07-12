@@ -7,7 +7,7 @@ export default function PromoteButton({ id }) {
 
   const promote = async () => {
     await fetch(
-      `http://localhost:5000/dashboard/admin/manage-users/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/admin/manage-users/${id}`,
       {
         method: "PATCH",
         headers: {

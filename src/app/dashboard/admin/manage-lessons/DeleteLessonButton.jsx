@@ -13,7 +13,7 @@ export default function DeleteLessonButton({ id }) {
 
     try {
       await fetch(
-        `http://localhost:5000/dashboard/admin/manage-lessons/${id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/admin/manage-lessons/${id}`,
         {
           method: "DELETE",
         }

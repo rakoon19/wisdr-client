@@ -10,7 +10,7 @@ export default function LessonDetailsPage() {
   const router = useRouter();
 
   // Dynamic API Base URL configuration 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+  const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   // States
   const [lesson, setLesson] = useState(null);

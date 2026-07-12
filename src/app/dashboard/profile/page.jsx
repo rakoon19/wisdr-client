@@ -6,7 +6,7 @@ import EditProfile from "./EditProfile";
 async function getProfileData(email) {
   try {
     const res = await fetch(
-      `http://localhost:5000/dashboard/profile?email=${encodeURIComponent(email)}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/profile?email=${encodeURIComponent(email)}`,
       { cache: "no-store" } // Ensure freshness
     );
     if (!res.ok) return null;

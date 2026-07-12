@@ -7,7 +7,7 @@ export default function RemoveFavoriteButton({ id, email }) {
 
   const handleRemove = async () => {
     await fetch(
-      `http://localhost:5000/dashboard/my-favorites/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/my-favorites/${id}`,
       {
         method: "PATCH",
         headers: {

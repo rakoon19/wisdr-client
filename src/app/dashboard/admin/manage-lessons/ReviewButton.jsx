@@ -8,7 +8,7 @@ export default function ReviewButton({ lesson }) {
 
   const toggleReviewed = async () => {
     await fetch(
-      `http://localhost:5000/dashboard/admin/manage-lessons/${lesson._id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/admin/manage-lessons/${lesson._id}`,
       {
         method: "PATCH",
         headers: {
