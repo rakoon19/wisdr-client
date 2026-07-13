@@ -29,7 +29,7 @@ export default async function DashboardPage() {
         {session.user.role === "admin" && (
           <Link
             href="/dashboard/admin"
-            className="inline-block rounded-lg bg-black text-white px-4 py-2 text-sm font-medium hover:bg-gray-800 transition-colors"
+            className="inline-block rounded-lg bg-blue-500 text-white px-4 py-2 text-sm font-medium hover:bg-blue-200 transition-colors"
           >
             Go to Admin Panel
           </Link>
