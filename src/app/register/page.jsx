@@ -22,10 +22,10 @@ export default function SignUpPage() {
 
     try {
       const { data, error } = await signUp.email({
-        name: formDataObj.name?.trim(),
-        email: formDataObj.email?.trim(),
-        password: formDataObj.password,
-        image: formDataObj.photoUrl?.trim() || undefined,
+        name: formDataObj?.name?.trim(),
+        email: formDataObj?.email?.trim(),
+        password: formDataObj?.password,
+        image: formDataObj?.photoUrl?.trim() || undefined,
       });
 
       if (error != null) {
