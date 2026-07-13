@@ -18,10 +18,10 @@ export default async function DashboardPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-3xl font-bold text-white">
             Welcome, {session.user.name}
           </h1>
-          <p className="text-gray-500">
+          <p className="text-white">
             Heres an overview of your activity.
           </p>
         </div>
@@ -40,14 +40,14 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="rounded-xl border p-6">
           <p className="text-gray-500">Total Lessons</p>
-          <h2 className="text-4xl font-bold">
+          <h2 className="text-4xl font-bold text-white">
             {dashboard.totalLessons}
           </h2>
         </div>
 
         <div className="rounded-xl border p-6">
           <p className="text-gray-500">Saved Lessons</p>
-          <h2 className="text-4xl font-bold">
+          <h2 className="text-4xl font-bold text-white">
             {dashboard.totalSaved}
           </h2>
         </div>
@@ -55,26 +55,26 @@ export default async function DashboardPage() {
 
       {/* Recent Lessons */}
       <div>
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 className="text-xl font-semibold mb-4 text-white">
           Recently Added Lessons
         </h2>
 
         {dashboard.recentlyAdded.length === 0 ? (
           <p>No lessons created yet.</p>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-3 text-white">
             {dashboard.recentlyAdded.map((lesson) => (
               <div
                 key={lesson._id}
-                className="rounded-lg border p-4"
+                className="rounded-lg border p-4 text-white" 
               >
-                <h3 className="font-semibold">{lesson.title}</h3>
+                <h3 className="font-semibold text-white">{lesson.title}</h3>
 
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 text-white">
                   {lesson.category} • {lesson.visibility}
                 </p>
 
-                <p className="mt-2 line-clamp-2">
+                <p className="mt-2 line-clamp-2 text-white">
                   {lesson.description}
                 </p>
               </div>
@@ -85,7 +85,7 @@ export default async function DashboardPage() {
 
       {/* Analytics */}
       <div className="rounded-xl border p-6">
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 className="text-xl font-semibold mb-4 text-white">
           Weekly Analytics
         </h2>
 
