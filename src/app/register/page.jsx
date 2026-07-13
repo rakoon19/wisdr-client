@@ -85,7 +85,7 @@ export default function SignUpPage() {
             }}
           >
             <Label>Email</Label>
-            <Input placeholder="john@example.com" />
+            <Input placeholder="john@example.com" name="email" type="email"/>
             <FieldError />
           </TextField>
 
@@ -129,6 +129,8 @@ export default function SignUpPage() {
               <Input 
                 placeholder="Enter your password" 
                 className="pr-10" 
+                name="password"
+                type="password"
               />
               <button
                 type="button"
