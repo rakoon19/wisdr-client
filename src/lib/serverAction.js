@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:5000'; // Define explicitly to avoid client-side env stripping
+const baseURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}`; // Define explicitly to avoid client-side env stripping
 
 export const serverAction = async (path) => {
   try {
