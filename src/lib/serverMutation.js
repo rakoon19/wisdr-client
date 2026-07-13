@@ -1,7 +1,7 @@
 // lib/serverMutation.js
 import { getSession } from "@/actions/session";
 
-const baseURL = 'http://localhost:5000';
+const baseURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
 
 export const serverMutation = async (path, data = null, methodApi = 'POST') => {
     try {
