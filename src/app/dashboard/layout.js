@@ -11,8 +11,7 @@ export default async function DashboardLayout({ children }) {
 
   return (
     <div className="flex bg-black text-white">
-      {session.user.role !== "admin" && <UserSideBar />}
-
+       <UserSideBar />
       <main className="flex-1 p-5 bg-black">
         {children}
       </main>
