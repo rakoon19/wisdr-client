@@ -10,23 +10,30 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  if (session.user.role === "admin") {
-    redirect("/dashboard/admin");
-  }
-
   const dashboard = await serverAction(
     `/dashboard?email=${session.user.email}`
   );
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">
-          Welcome, {session.user.name}
-        </h1>
-        <p className="text-gray-500">
-          Heres an overview of your activity.
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">
+            Welcome, {session.user.name}
+          </h1>
+          <p className="text-gray-500">
+            Heres an overview of your activity.
+          </p>
+        </div>
+
+        {session.user.role === "admin" && (
+          <Link
+            href="/dashboard/admin"
+            className="inline-block rounded-lg bg-black text-white px-4 py-2 text-sm font-medium hover:bg-gray-800 transition-colors"
+          >
+            Go to Admin Panel
+          </Link>
+        )}
       </div>
 
       {/* Stats */}
@@ -45,7 +52,6 @@ export default async function DashboardPage() {
           </h2>
         </div>
       </div>
-
 
       {/* Recent Lessons */}
       <div>
