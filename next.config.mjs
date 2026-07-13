@@ -17,7 +17,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'ibb.co.com', // Authorizes ImgBB direct image links
+        hostname: 'ibb.co/**', // Authorizes ImgBB direct image links
       },
       // 💡 Add any production storage host domains here later (e.g., s3, Cloudinary)
     ],
