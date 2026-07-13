@@ -1,6 +1,5 @@
 import { getSession } from "@/actions/session";
 import { redirect } from "next/navigation";
-import AppSideBar from "@/components/AppSideBar";
 
 export default async function AdminLayout({ children }) {
   const session = await getSession();
@@ -13,10 +12,5 @@ export default async function AdminLayout({ children }) {
     redirect("/dashboard");
   }
 
-  return (
-    <div className="flex">
-      <AppSideBar />
-      <main className="flex-1">{children}</main>
-    </div>
-  );
+  return <>{children}</>;
 }
