@@ -1,6 +1,6 @@
 import { getSession } from "@/actions/session";
 import { redirect } from "next/navigation";
-import UserSideBar from "@/components/UserSideBar";
+import AppSideBar from "@/components/AppSideBar";
 
 export default async function DashboardLayout({ children }) {
   const session = await getSession();
@@ -10,11 +10,9 @@ export default async function DashboardLayout({ children }) {
   }
 
   return (
-    <div className="flex bg-black text-white">
-       <UserSideBar />
-      <main className="flex-1 p-5 bg-black">
-        {children}
-      </main>
+    <div className="flex">
+      <AppSideBar role={session.user.role} />
+      <main className="flex-1">{children}</main>
     </div>
   );
 }
