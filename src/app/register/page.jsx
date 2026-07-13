@@ -130,7 +130,6 @@ export default function SignUpPage() {
                 placeholder="Enter your password" 
                 className="pr-10" 
                 name="password"
-                type="password"
               />
               <button
                 type="button"
