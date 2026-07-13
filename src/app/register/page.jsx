@@ -8,22 +8,24 @@ import Link from "next/link";
 import { authClient, signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
-
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
- const onSubmit = async(e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     const formDataObj = Object.fromEntries(new FormData(e.currentTarget));
-    console.log(formDataObj)
+
     try {
       const { data, error } = await signUp.email({
-        name: formDataObj.name,
-        email: formDataObj.email,
+        name: formDataObj.name?.trim(),
+        email: formDataObj.email?.trim(),
         password: formDataObj.password,
-        image: formDataObj.photoUrl,
+        image: formDataObj.photoUrl?.trim() || undefined,
       });
 
       if (error != null) {
@@ -34,19 +36,27 @@ export default function SignUpPage() {
 
       if (data != null) {
         toast.success("Account created successfully. Redirecting to dashboard...");
-        window.location.href = "/" ;
+        router.push("/");
+        router.refresh();
       }
     } catch (err) {
       console.error(err);
-      toast.error("An unexpected error occurred.");
-    } 
+      toast.error("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleGoogleSignIn = async() => {
-    await authClient.signIn.social({
-      provider: "google", 
-    })
-  }
+  const handleGoogleSignIn = async () => {
+    try {
+      await authClient.signIn.social({
+        provider: "google",
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error("Unable to sign in with Google. Please try again.");
+    }
+  };
 
   const onInvalid = (e) => {
     e.preventDefault();
@@ -60,15 +70,15 @@ export default function SignUpPage() {
           Register Page
         </h2>
 
-        <Form 
-          className="flex flex-col gap-5" 
+        <Form
+          className="flex flex-col gap-5"
           onSubmit={onSubmit}
           onInvalid={onInvalid}
         >
           {/* Name Field */}
           <TextField isRequired name="name" type="text">
             <Label>Name</Label>
-            <Input placeholder="John Doe" />
+            <Input name="name" placeholder="John Doe" />
             <FieldError />
           </TextField>
 
@@ -85,13 +95,12 @@ export default function SignUpPage() {
             }}
           >
             <Label>Email</Label>
-            <Input placeholder="john@example.com" name="email" type="email"/>
+            <Input name="email" placeholder="john@example.com" />
             <FieldError />
           </TextField>
 
-          {/* Photo URL Field */}
+          {/* Photo URL Field (optional) */}
           <TextField
-            isRequired
             name="photoUrl"
             type="url"
             validate={(value) => {
@@ -102,7 +111,7 @@ export default function SignUpPage() {
             }}
           >
             <Label>Photo URL</Label>
-            <Input placeholder="https://example.com/avatar.jpg" />
+            <Input name="photoUrl" placeholder="https://example.com/avatar.jpg" />
             <FieldError />
           </TextField>
 
@@ -110,7 +119,6 @@ export default function SignUpPage() {
           <TextField
             isRequired
             name="password"
-            type={showPassword ? "text" : "password"}
             validate={(value) => {
               if (value.length < 6) {
                 return "Password must be at least 6 characters long";
@@ -126,14 +134,15 @@ export default function SignUpPage() {
           >
             <Label>Password</Label>
             <div className="relative w-full">
-              <Input 
-                placeholder="Enter your password" 
-                className="pr-10" 
+              <Input
                 name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                className="w-full pr-10"
               />
               <button
                 type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors z-10"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
@@ -149,11 +158,11 @@ export default function SignUpPage() {
           {/* Action Buttons & Redirect Link */}
           <div className="flex flex-col gap-4 pt-2">
             <div className="flex gap-3">
-              <Button type="submit" className="flex items-center gap-2">
+              <Button type="submit" isDisabled={isSubmitting} className="flex items-center gap-2">
                 <Check className="h-4 w-4" />
-                Sign Up
+                {isSubmitting ? "Creating account..." : "Sign Up"}
               </Button>
-              <Button type="reset" variant="secondary">
+              <Button type="reset" variant="secondary" isDisabled={isSubmitting}>
                 Reset
               </Button>
             </div>
@@ -161,7 +170,7 @@ export default function SignUpPage() {
             <p className="text-sm text-muted-foreground mt-2">
               Already have an account?{" "}
               <Link
-                href='/login'
+                href="/login"
                 className="text-primary hover:underline font-medium transition-all"
               >
                 Login here
@@ -169,11 +178,12 @@ export default function SignUpPage() {
             </p>
           </div>
         </Form>
-            {/* GOOGLE LOGIN BUTTON */}
+
+        {/* GOOGLE LOGIN BUTTON */}
         <button
           type="button"
           onClick={handleGoogleSignIn}
-          className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
+          className="mt-4 flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24">
             <path
@@ -195,7 +205,6 @@ export default function SignUpPage() {
           </svg>
           <span>Sign in with Google</span>
         </button>
-
       </div>
     </div>
   );
